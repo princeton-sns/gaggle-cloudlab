@@ -27,11 +27,11 @@ params = portal.context.bindParameters()
 # Create a Request object to start building the RSpec.
 request = portal.context.makeRequestRSpec()
 
-#ifaces = []
-#site = "site"
+ifaces = []
+site = "site"
 
 # Setup LAN
-#lan = request.LAN("lan")
+lan = request.LAN("lan")
 # bandwidth in Kbps
 #lan.bandwidth = 100000
 # latency in ms
@@ -43,26 +43,26 @@ request = portal.context.makeRequestRSpec()
 node_server = request.RawPC("node_server")
 node_server.hardware_type = params.HW
 node_server.disk_image = params.DI
-node_server.addService(pg.Execute(shell="sh", command="/local/repository/setup_server.sh"))
+node_server.addService(pg.Execute(shell="sh", command="/local/repository/setup.sh"))
 
 # Add server node to LAN
-#node_server.Site(site)
-#server_iface = node_server.addInterface("eth1")
-##server_iface.addAddress(pg.IPv4Address(params.baseIP + "0", "255.255.255.0"))
-#lan.addInterface(server_iface)
+node_server.Site(site)
+server_iface = node_server.addInterface("iface0") #"eth1"
+#server_iface.addAddress(pg.IPv4Address(params.baseIP + "0", "255.255.255.0"))
+lan.addInterface(server_iface)
 
 for i in range(1, params.numClients + 1):
     # Client node
     node_client = request.RawPC("node_client" + str(i))
     node_client.hardware_type = params.HW
     node_client.disk_image = params.DI
-    node_client.addService(pg.Execute(shell="sh", command="/local/repository/setup_client.sh"))
+    node_client.addService(pg.Execute(shell="sh", command="/local/repository/setup.sh"))
 
     # Add client node to LAN
-    #node_client.Site(site)
-    #client_iface = node_client.addInterface("eth1")
-    ##client_iface.addAddress(pg.IPv4Address(params.baseIP + str(i), "255.255.255.0"))
-    #lan.addInterface(client_iface)
+    node_client.Site(site)
+    client_iface = node_client.addInterface("iface" + str(i)) #"eth1"
+    #client_iface.addAddress(pg.IPv4Address(params.baseIP + str(i), "255.255.255.0"))
+    lan.addInterface(client_iface)
 
 # Print the RSpec to the enclosing page.
 portal.context.printRequestRSpec()
