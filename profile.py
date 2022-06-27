@@ -1,11 +1,12 @@
 """Latency and throughput measurement profile for Gaggle server. 
 
 Instructions:
-SSH into each node and `cd /local/gaggle`. If on the server node, run 
-`./install_server.sh` to install relevant npm packages. Start the server 
-with `node index.js`. If on a client node, run `./install_client.sh` to 
-install relevant npm packages. To run the client with default options, 
-run `node index.js`. To see configurable options, run `node index.js -h`.
+SSH into each node and `cd /local/repository`. If on the server node, run 
+`./setup_server.sh` to install relevant packages and start the server 
+in the newly-created tmux session with `node index.js`. If on a client node,
+run `./setup_client.sh` to install relevant packages. To run the client 
+(also in a newly-created tmux session) with the default options, run 
+`node index.js`. To see the configurable options, run `node index.js -h`. 
 """
 
 # Import the Portal object.
@@ -43,7 +44,7 @@ lan = request.LAN("lan")
 node_server = request.RawPC("node_server")
 node_server.hardware_type = params.HW
 node_server.disk_image = params.DI
-node_server.addService(pg.Execute(shell="sh", command="/local/repository/setup.sh"))
+#node_server.addService(pg.Execute(shell="sh", command="/local/repository/setup_server.sh"))
 
 # Add server node to LAN
 node_server.Site(site)
@@ -56,7 +57,7 @@ for i in range(1, params.numClients + 1):
     node_client = request.RawPC("node_client" + str(i))
     node_client.hardware_type = params.HW
     node_client.disk_image = params.DI
-    node_client.addService(pg.Execute(shell="sh", command="/local/repository/setup.sh"))
+    #node_client.addService(pg.Execute(shell="sh", command="/local/repository/setup_client.sh"))
 
     # Add client node to LAN
     node_client.Site(site)
