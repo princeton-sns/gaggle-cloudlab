@@ -43,7 +43,7 @@ request = portal.context.makeRequestRSpec()
 node_server = request.RawPC("node_server")
 node_server.hardware_type = params.HW
 node_server.disk_image = params.DI
-node_server.addService(pg.Execute(shell="sh", command="/local/repository/cloudlab_server_setup.sh"))
+node_server.addService(pg.Execute(shell="sh", command="/local/repository/setup_server.sh"))
 
 # Add server node to LAN
 #node_server.Site(site)
@@ -56,7 +56,7 @@ for i in range(1, params.numClients + 1):
     node_client = request.RawPC("node_client" + str(i))
     node_client.hardware_type = params.HW
     node_client.disk_image = params.DI
-    node_client.addService(pg.Execute(shell="sh", command="/local/repository/cloudlab_client_setup.sh"))
+    node_client.addService(pg.Execute(shell="sh", command="/local/repository/setup_client.sh"))
 
     # Add client node to LAN
     #node_client.Site(site)
