@@ -1,11 +1,11 @@
 """Latency and throughput measurement profile for Gaggle server. 
 
 Instructions:
-Log into each node, the repository is mounted at `/local/noise`.
-The number of nodes and hardware type are parameterized so you can 
-configure based on availability and need. Once instantiated, `cd /local/noise`.
-Start the server with `node index.js`. Configurable client options can be seen 
-by running `node index.js -h`. Then start each client with `node index.js [options]`.
+SSH into each node and `cd /local/gaggle`. If on the server node, run 
+`./install_server.sh` to install relevant npm packages. Start the server 
+with `node index.js`. If on a client node, run `./install_client.sh` to 
+install relevant npm packages. To run the client with default options, 
+run `node index.js`. To see configurable options, run `node index.js -h`.
 """
 
 # Import the Portal object.
