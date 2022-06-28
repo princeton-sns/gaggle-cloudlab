@@ -28,7 +28,6 @@ params = portal.context.bindParameters()
 # Create a Request object to start building the RSpec.
 request = portal.context.makeRequestRSpec()
 
-ifaces = []
 site = "site"
 
 # Setup LAN
