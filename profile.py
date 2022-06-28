@@ -47,7 +47,8 @@ node_server.disk_image = params.DI
 
 # Add server node to LAN
 node_server.Site(site)
-server_iface = node_server.addInterface("iface0") #"eth1"
+server_iface = node_server.addInterface("iface0")
+server_iface.component_id = "eth0"
 server_iface.addAddress(pg.IPv4Address(params.baseIP + "0", "255.255.255.0"))
 lan.addInterface(server_iface)
 
@@ -59,7 +60,8 @@ for i in range(1, params.numClients + 1):
 
     # Add client node to LAN
     node_client.Site(site)
-    client_iface = node_client.addInterface("iface" + str(i)) #"eth1"
+    client_iface = node_client.addInterface("iface" + str(i))
+    client_iface.component_id = "eth" + str(i)
     client_iface.addAddress(pg.IPv4Address(params.baseIP + str(i), "255.255.255.0"))
     lan.addInterface(client_iface)
 
